@@ -9,21 +9,10 @@
 <body>
 <script type="text/javascript" src="libs/angular/angular.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
-<p>
-    {{"hello" + "you"}}
-</p>
-
 <div ng-controller="ImageController as image">
-    <h1>
-        {{image.picture.name}}
-    </h1>
-
-    <h2>
-        {{image.picture.price}}
-    </h2>
-
+    <h1>{{image.picture.name}}</h1>
+    <h2>{{image.picture.price}}</h2>
     <p>{{image.picture.description}}</p>
-
 </div>
 </body>
 </html>
