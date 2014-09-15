@@ -3,16 +3,21 @@
 <head>
     <link rel="stylesheet" type="text/css"
           href="libs/bootstrap-3.2.0-dist/css/bootstrap.min.css"/>
-
-
 </head>
 <body>
 <script type="text/javascript" src="libs/angular/angular.min.js"></script>
+<script type="text/javascript" src="libs/node-flickrapi-master/browser/flickrapi.js"></script>
 <script type="text/javascript" src="app.js"></script>
 <div ng-controller="ImageController as image">
-    <h1>{{image.picture.name}}</h1>
-    <h2>{{image.picture.price}}</h2>
-    <p>{{image.picture.description}}</p>
+    <h1>Flickr Angular</h1>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="pic in image.photos.photo">
+            <h3>
+                Title: {{pic.title}}
+                <em class="pull-right">ID: {{pic.id}}</em>
+            </h3>
+        </li>
+    </ul>
 </div>
 </body>
 </html>
