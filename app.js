@@ -1,7 +1,21 @@
 (function () {
-    var app = angular.module('flickr-angular', [])
+    var app = angular.module('flickr-angular', []);
+
     app.controller('ImageController', function () {
         this.photos = photos;
+    });
+
+    app.controller('TabController', function(){
+        this.tab = 1;
+
+        this.setTab = function(newValue){
+            this.tab = newValue;
+        };
+
+        this.isSet = function(tabName){
+            return this.tab === tabName;
+        };
+
     });
 
     var photos = {
