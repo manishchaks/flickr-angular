@@ -24,5 +24,12 @@ describe('Flickr Angular Controllers', function() {
     it('Should have the first tab activated by default', function() {
       expect(scope.tab).toBe(1);
     });
+
+    it('Should set the activated tab correctly',function(){
+       scope.setTab(2);
+        expect(scope.isSet(2)).toBe(true);
+        scope.setTab(3);
+        expect(scope.isSet(3)).toBe(true);
+    });
   });
 });
