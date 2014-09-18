@@ -1,13 +1,12 @@
 
 var app = angular.module('flickr-angular', []);
 
-app.controller('ImageController', function () {
-  for (pic in searchResults.photo){
-    searchResults.photo[pic].reviews= new Array();
-  }
-  this.searchResults = searchResults;
-
-});
+app.controller('ImageController',['$scope',function($scope){
+    for (pic in searchResults.photo){
+        searchResults.photo[pic].reviews= new Array();
+    }
+    $scope.searchResults = searchResults;
+}]);
 
 app.controller('TabController',['$scope',function($scope){
     $scope.tab = 1;

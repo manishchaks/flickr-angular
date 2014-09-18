@@ -6,19 +6,19 @@
     <script type="text/javascript" src="libs/node-flickrapi-master/browser/flickrapi.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </head>
-<body class="list-group" ng-controller="ImageController as image">
+<body class="list-group" ng-controller="ImageController">
 <header>
     <h1 class="text-center">Flickr search</h1>
     <h2 class="text-center">Made with Angular.js</h2>
 </header>
 <div class="list-group-item" ng-repeat="photo in
-                                            image.searchResults.photo">
+                                           searchResults.photo">
 
     <h3>Title: {{photo.title}}
         <em class="pull-right">Owner: {{photo.owner}}</em>
     </h3>
 
-    <section ng-show="image.photos.photo.length">
+    <section ng-show="photos.photo.length">
         Picture gets shown here
         <!-- <img ng-src="{{product.images[0]}}" /> -->
         <!-- <ul class="list-inline thumbs"> -->
