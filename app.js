@@ -25,15 +25,7 @@
     app.controller('ReviewController', function(){
         this.review = {};
         this.addReview = function(photo){
-//            if (photo.reviews === null){
-//                reviewsArray = new Array();
-//                photo.reviews = reviewsArray;
-//            }
-//            reviewsArray = new Array();
-//            photo.reviews = reviewsArray;
-//            console.log(photo)
             photo.reviews.push(this.review);
-            console.log(photo);
             this.review = {};
         };
     });
