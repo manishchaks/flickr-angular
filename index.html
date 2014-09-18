@@ -28,24 +28,24 @@
         <!-- </ul> -->
     </section>
 
-    <section class="tab" ng-controller="TabController as tab">
+    <section class="tab" ng-controller="TabController">
         <ul class="nav nav-pills">
-            <li ng-class="{active: tab.isSet(1)}">
-                <a href ng-click="tab.setTab(1)">Description</a></li>
-            <li ng-class="{active: tab.isSet(2)}">
-                <a ng-click="tab.setTab(2)" href>Specs</a></li>
-            <li ng-class="{active: tab.isSet(3)}">
-                <a ng-click="tab.setTab(3)" href>Reviews</a></li>
+            <li ng-class="{active: isSet(1)}">
+                <a href ng-click="setTab(1)">Description</a></li>
+            <li ng-class="{active: isSet(2)}">
+                <a ng-click="setTab(2)" href>Specs</a></li>
+            <li ng-class="{active: isSet(3)}">
+                <a ng-click="setTab(3)" href>Reviews</a></li>
         </ul>
-        <div ng-show="tab.isSet(1)">
+        <div ng-show="isSet(1)">
             <h4>Information</h4>
             <blockquote>Owner: {{photo.owner}}</blockquote>
         </div>
-        <div ng-show="tab.isSet(2)">
+        <div ng-show="isSet(2)">
             <h4>Specs</h4>
             <blockquote>ID: {{photo.id}}</blockquote>
         </div>
-        <div ng-show="tab.isSet(3)">
+        <div ng-show="isSet(3)">
             <ul>
                 <h4>Reviews</h4>
                 <li ng-repeat="review in photo.reviews">
