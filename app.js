@@ -2,10 +2,11 @@
 var app = angular.module('flickr-angular', []);
 
 app.controller('ImageController',['$scope',function($scope){
-    for (pic in searchResults.photo){
-        searchResults.photo[pic].reviews= new Array();
+    $scope.searchResults = {};
+    for (pic in testSearchResults.photo){
+        testSearchResults.photo[pic].reviews= new Array();
     }
-    $scope.searchResults = searchResults;
+    $scope.searchResults = testSearchResults;
 }]);
 
 app.controller('TabController',['$scope',function($scope){
@@ -18,15 +19,15 @@ app.controller('TabController',['$scope',function($scope){
     }
 }]);
 
-app.controller('ReviewController', function(){
-  this.review = {};
-  this.addReview = function(photo){
-    photo.reviews.push(this.review);
-    this.review = {};
-  };
-});
+app.controller('ReviewController',['$scope',function($scope){
+    $scope.review = {};
+    $scope.addReview = function(photo){
+        photo.reviews.push($scope.review);
+        $scope.review = {};
+    }
+}]);
 
-var searchResults = {
+var testSearchResults = {
   page: 1,
   pages: 4483,
   perpage: 100,
