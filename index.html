@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html ng-app="flickr-angular">
-  <head>
+<head>
     <link rel="stylesheet" type="text/css" href="libs/bootstrap-3.2.0-dist/css/bootstrap.min.css"/>
     <script type="text/javascript" src="libs/angular/angular.min.js"></script>
     <script type="text/javascript" src="libs/node-flickrapi-master/browser/flickrapi.js"></script>
     <script type="text/javascript" src="app.js"></script>
-  </head>
-  <body class="list-group" ng-controller="ImageController as image">
-    <header>
-      <h1 class="text-center">Flickr search</h1>
-      <h2 class="text-center">Made with Angular.js</h2>
-    </header>
-    <div class="list-group-item" ng-repeat="photo in
-                                            image.photos.photo">
+</head>
+<body class="list-group" ng-controller="ImageController as image">
+<header>
+    <h1 class="text-center">Flickr search</h1>
+    <h2 class="text-center">Made with Angular.js</h2>
+</header>
+<div class="list-group-item" ng-repeat="photo in
+                                            image.searchResults.photo">
 
-      <h3>Title: {{photo.title}}
+    <h3>Title: {{photo.title}}
         <em class="pull-right">Owner: {{photo.owner}}</em>
-      </h3>
+    </h3>
 
-      <section ng-show="image.photos.photo.length">
+    <section ng-show="image.photos.photo.length">
         Picture gets shown here
         <!-- <img ng-src="{{product.images[0]}}" /> -->
         <!-- <ul class="list-inline thumbs"> -->
@@ -26,30 +26,64 @@
         <!--     <img ng-src="{{image}}" /> -->
         <!--   </li> -->
         <!-- </ul> -->
-      </section>
+    </section>
 
-      <section class="tab" ng-controller="TabController as tab">
+    <section class="tab" ng-controller="TabController as tab">
         <ul class="nav nav-pills">
-          <li ng-class="{active: tab.isSet(1)}">
-            <a href ng-click="tab.setTab(1)">Description</a></li>
-          <li ng-class="{active: tab.isSet(2)}">
-            <a ng-click="tab.setTab(2)" href>Specs</a></li>
-          <li ng-class="{active: tab.isSet(3)}">
-            <a ng-click="tab.setTab(3)" href>Reviews</a></li>
+            <li ng-class="{active: tab.isSet(1)}">
+                <a href ng-click="tab.setTab(1)">Description</a></li>
+            <li ng-class="{active: tab.isSet(2)}">
+                <a ng-click="tab.setTab(2)" href>Specs</a></li>
+            <li ng-class="{active: tab.isSet(3)}">
+                <a ng-click="tab.setTab(3)" href>Reviews</a></li>
         </ul>
         <div ng-show="tab.isSet(1)">
-          <h4>Information</h4>
-          <blockquote>Owner: {{photo.owner}}</blockquote>
+            <h4>Information</h4>
+            <blockquote>Owner: {{photo.owner}}</blockquote>
         </div>
         <div ng-show="tab.isSet(2)">
-          <h4>Specs</h4>
-          <blockquote>ID: {{photo.id}}</blockquote>
+            <h4>Specs</h4>
+            <blockquote>ID: {{photo.id}}</blockquote>
         </div>
         <div ng-show="tab.isSet(3)">
-          <h4>Comments</h4>
-          <blockquote></blockquote>
+            <ul>
+                <h4>Reviews</h4>
+                <li ng-repeat="review in photo.reviews">
+                    <blockquote>
+                        <strong>{{review.stars}} Stars</strong>
+                        {{review.body}}
+                        <cite class="clearfix">{{review.author}}</cite>
+                    </blockquote>
+                </li>
+            </ul>
+            <!--  Review Form -->
+            <form name="reviewForm" ng-controller="ReviewController as reviewCtrl"  ng-submit="reviewCtrl.addReview(photo)">
+                <!--  Live Preview -->
+                <blockquote>
+                    <strong>{{reviewCtrl.review.stars}} Stars</strong>
+                    {{reviewCtrl.review.body}}
+                    <cite class="clearfix">-- {{reviewCtrl.review.author}} </cite>
+                </blockquote>
+
+                <!--  Review Form -->
+                <h4>Submit a Review</h4>
+                <fieldset class="form-group">
+                    <select ng-model="reviewCtrl.review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]"  title="Stars">
+                        <option value="">Rate the Product</option>
+                    </select>
+                </fieldset>
+                <fieldset class="form-group">
+                    <textarea ng-model="reviewCtrl.review.body" class="form-control" placeholder="Write a short review of the product..." title="Review"></textarea>
+                </fieldset>
+                <fieldset class="form-group">
+                    <input ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="manish@example.org" title="Email" />
+                </fieldset>
+                <fieldset class="form-group">
+                    <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+                </fieldset>
+            </form>
         </div>
-      </section>
-    </div>
-  </body>
+    </section>
+</div>
+</body>
 </html>

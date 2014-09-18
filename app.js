@@ -2,7 +2,11 @@
     var app = angular.module('flickr-angular', []);
 
     app.controller('ImageController', function () {
-        this.photos = photos;
+        for (pic in searchResults.photo){
+            searchResults.photo[pic].reviews= new Array();
+        }
+        this.searchResults = searchResults;
+
     });
 
     app.controller('TabController', function(){
@@ -18,7 +22,23 @@
 
     });
 
-    var photos = {
+    app.controller('ReviewController', function(){
+        this.review = {};
+        this.addReview = function(photo){
+//            if (photo.reviews === null){
+//                reviewsArray = new Array();
+//                photo.reviews = reviewsArray;
+//            }
+//            reviewsArray = new Array();
+//            photo.reviews = reviewsArray;
+//            console.log(photo)
+            photo.reviews.push(this.review);
+            console.log(photo);
+            this.review = {};
+        };
+    });
+
+    var searchResults = {
         page: 1,
         pages: 4483,
         perpage: 100,
