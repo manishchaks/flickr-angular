@@ -46,9 +46,9 @@
             <blockquote>ID: {{photo.id}}</blockquote>
         </div>
         <div ng-show="isSet(3)">
-            <ul>
+            <ul ng-controller="ReviewController">
                 <h4>Reviews</h4>
-                <li ng-repeat="review in photo.reviews">
+                <li ng-repeat="review in getReviews(photo.id)">
                     <blockquote>
                         <strong>{{review.stars}} Stars</strong>
                         {{review.body}}

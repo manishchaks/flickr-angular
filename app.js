@@ -2,10 +2,10 @@
 var app = angular.module('flickr-angular', []);
 
 app.controller('ImageController',['$scope',function($scope){
-    $scope.searchResults = {};
-    for (pic in testSearchResults.photo){
-        testSearchResults.photo[pic].reviews= new Array();
-    }
+//    $scope.searchResults = {};
+//    for (pic in testSearchResults.photo){
+//        testSearchResults.photo[pic].reviews= new Array();
+//    }
     $scope.searchResults = testSearchResults;
 }]);
 
@@ -20,12 +20,22 @@ app.controller('TabController',['$scope',function($scope){
 }]);
 
 app.controller('ReviewController',['$scope',function($scope){
-    $scope.review = {};
+    $scope.reviews = testReviews;
     $scope.addReview = function(photo){
-        photo.reviews.push($scope.review);
+        $scope.reviews[photo.id].push($scope.review);
         $scope.review = {};
-    }
+        console.log($scope.reviews);
+    };
+
+    $scope.getReviews = function(photo_id){
+        return $scope.reviews[photo_id];
+    };
 }]);
+
+var testReviews = {
+    "15246462712": [{stars: 5, author: 'manish@foo.com', body: 'well done!'}],
+    "15246462713": [{stars: 4, author: 'manish@foo.com', body: 'Can do better'}]
+};
 
 var testSearchResults = {
   page: 1,
@@ -45,7 +55,7 @@ var testSearchResults = {
     },
     {
       farm: 6,
-      id: "15246462712",
+      id: "15246462713",
       isfamily: 0,
       isfriend: 0,
       ispublic: 1,
