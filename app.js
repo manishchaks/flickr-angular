@@ -3,10 +3,14 @@ var app = angular.module('flickr-angular', []);
 app.controller('ImageController', ['$scope', '$http', function ($scope, $http) {
 
     // IMPORTANT: replace this with your actual flickr API key
-    var flickr_api_key = '1da839460541a9c57522efd19a529638';
+    var flickr_api_key = 'INSERT_API_KEY';
+
+    $scope.constructFlickrQuery = function(searchText,api_key){
+        return 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + api_key + '&text=' + searchText + '&per_page=5&page=1&format=json&nojsoncallback=1'
+    }
 
     $scope.doFlickrSearch = function (searchText) {
-        $http.get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr_api_key + '&text=' + searchText + '&per_page=5&page=1&format=json&nojsoncallback=1').success(function (data) {
+        $http.get($scope.constructFlickrQuery(searchText,flickr_api_key)).success(function (data) {
             $scope.searchResults = data["photos"];
         });
     };
