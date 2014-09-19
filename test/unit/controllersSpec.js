@@ -1,10 +1,10 @@
 'use strict';
 
-describe('Flickr Angular Controllers', function() {
+describe('Flickr Angular Controllers', function () {
 
-    beforeEach(function(){
+    beforeEach(function () {
         this.addMatchers({
-            toEqualData: function(expected) {
+            toEqualData: function (expected) {
                 return angular.equals(this.actual, expected);
             }
         });
@@ -12,34 +12,51 @@ describe('Flickr Angular Controllers', function() {
 
     beforeEach(module('flickr-angular'));
 
-
-    describe('TabController', function(){
+    describe('ImageController', function () {
         var scope, $httpBackend, ctrl;
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+        beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
+            scope = $rootScope.$new();
+            ctrl = $controller('ImageController', {$scope: scope});
+        }));
+
+
+        it('Should be able to construct a direct url to the flickr image, with max size 640x640', function () {
+            // Read: https://www.flickr.com/services/api/misc.urls.html
+            // The flickr URL is of the format https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_[mstzb].jpg
+            var photo = scope.searchResults['photo'][0];
+            expect(scope.getImageUrl(photo)).toBe('https://farm6.staticflickr.com/5585/15246462712_fd242a9b99_z.jpg');
+        });
+
+    });
+
+
+    describe('TabController', function () {
+        var scope, $httpBackend, ctrl;
+        beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
             scope = $rootScope.$new();
             ctrl = $controller('TabController', {$scope: scope});
         }));
 
 
-        it('Should have the first tab activated by default', function() {
+        it('Should have the first tab activated by default', function () {
             expect(scope.tab).toBe(1);
         });
 
-        it('Should set the activated tab correctly',function(){
+        it('Should set the activated tab correctly', function () {
             scope.setTab(2);
             expect(scope.isSet(2)).toBe(true);
             scope.setTab(3);
             expect(scope.isSet(3)).toBe(true);
         });
     });
-    describe('ReviewController', function(){
+    describe('ReviewController', function () {
         var scope, $httpBackend, ctrl;
-        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+        beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
             scope = $rootScope.$new();
             ctrl = $controller('ReviewController', {$scope: scope});
         }));
 
-        it("Should be possible to add a review",function(){
+        it("Should be possible to add a review", function () {
             scope.review = {stars: 5, author: "manish@test.com", body: 'This is a test body'}
             var photoId = "15246462712";
             expect(scope.reviews[photoId].length).toBe(1);
