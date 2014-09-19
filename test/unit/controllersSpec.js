@@ -23,7 +23,37 @@ describe('Flickr Angular Controllers', function () {
         it('Should be able to construct a direct url to the flickr image, with max size 640x640', function () {
             // Read: https://www.flickr.com/services/api/misc.urls.html
             // The flickr URL is of the format https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_[mstzb].jpg
-            var photo = scope.searchResults['photo'][0];
+
+            var testSearchResults = {
+                page: 1,
+                pages: 4483,
+                perpage: 2,
+                photo: [
+                    {
+                        farm: 6,
+                        id: "15246462712",
+                        isfamily: 0,
+                        isfriend: 0,
+                        ispublic: 1,
+                        owner: "31600622@N06",
+                        secret: "fd242a9b99",
+                        server: "5585",
+                        title: "P1040172"
+                    },
+                    {
+                        farm: 6,
+                        id: "15246462713",
+                        isfamily: 0,
+                        isfriend: 0,
+                        ispublic: 1,
+                        owner: "31600622@N06",
+                        secret: "fd242a9b99",
+                        server: "5585",
+                        title: "P1040174"
+                    }
+                ]
+            };
+            var photo = testSearchResults['photo'][0];
             expect(scope.getImageUrl(photo)).toBe('https://farm6.staticflickr.com/5585/15246462712_fd242a9b99_z.jpg');
         });
 

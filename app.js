@@ -3,7 +3,7 @@ var app = angular.module('flickr-angular', []);
 app.controller('ImageController', ['$scope', '$http', function ($scope, $http) {
 
     // IMPORTANT: replace this with your actual flickr API key
-    var flickr_api_key = 'INSERT_API_KEY';
+    var flickr_api_key = '1da839460541a9c57522efd19a529638';
 
     $scope.doFlickrSearch = function (searchText) {
         $http.get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr_api_key + '&text=' + searchText + '&per_page=5&page=1&format=json&nojsoncallback=1').success(function (data) {
@@ -20,7 +20,7 @@ app.controller('ImageController', ['$scope', '$http', function ($scope, $http) {
         return url;
     };
 
-    $scope.searchResults = testSearchResults;
+    $scope.searchResults = {};
     $scope.searchText = 'Sunset';
     $scope.doFlickrSearch($scope.searchText);
 }]);
@@ -60,32 +60,3 @@ var testReviews = {
     ]
 };
 
-var testSearchResults = {
-    page: 1,
-    pages: 4483,
-    perpage: 2,
-    photo: [
-        {
-            farm: 6,
-            id: "15246462712",
-            isfamily: 0,
-            isfriend: 0,
-            ispublic: 1,
-            owner: "31600622@N06",
-            secret: "fd242a9b99",
-            server: "5585",
-            title: "P1040172"
-        },
-        {
-            farm: 6,
-            id: "15246462713",
-            isfamily: 0,
-            isfriend: 0,
-            ispublic: 1,
-            owner: "31600622@N06",
-            secret: "fd242a9b99",
-            server: "5585",
-            title: "P1040174"
-        }
-    ]
-}
