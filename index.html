@@ -12,86 +12,104 @@
 
     <h2 class="text-center">Made with Angular.js</h2>
 </header>
-<section>
-    <form name="search" ng-submit="doFlickrSearch(image.searchText)">
-        <fieldset class="form-group">
-            <input ng-model="image.searchText" type="text" class="form-control" placeholder="Beach"
-                   title="Image Search"/>
-        </fieldset>
-        <fieldset class="form-group">
-            <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
-        </fieldset>
-    </form>
-</section>
-<div class="list-group-item" ng-repeat="photo in
-                                           searchResults.photo">
-    <h3>Title: {{photo.title}}
-        <em class="pull-right">Owner: {{photo.owner}}</em>
-    </h3>
-
+<div class="well">
     <section>
-        <img ng-src="{{getImageUrl(photo)}}"/>
+        <form name="search" ng-submit="doFlickrSearch(image.searchText)">
+            <fieldset class="form-group">
+                <input ng-model="image.searchText" type="text" class="form-control" placeholder="Beach"
+                       title="Image Search"/>
+            </fieldset>
+            <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+            </fieldset>
+        </form>
     </section>
+    <div class="list-group-item" ng-repeat="photo in
+                                           searchResults.photo">
+        <h3>Title: {{photo.title}}
+            <em class="pull-right">Owner: {{photo.owner}}</em>
+        </h3>
 
-    <section class="tab" ng-controller="TabController">
-        <ul class="nav nav-pills">
-            <li ng-class="{active: isSet(1)}">
-                <a href ng-click="setTab(1)">Description</a></li>
-            <li ng-class="{active: isSet(2)}">
-                <a ng-click="setTab(2)" href>Specs</a></li>
-            <li ng-class="{active: isSet(3)}">
-                <a ng-click="setTab(3)" href>Reviews</a></li>
-        </ul>
-        <div ng-show="isSet(1)">
-            <h4>Information</h4>
-            <blockquote>Owner: {{photo.owner}}</blockquote>
-        </div>
-        <div ng-show="isSet(2)">
-            <h4>Specs</h4>
-            <blockquote>ID: {{photo.id}}</blockquote>
-        </div>
-        <div ng-show="isSet(3)">
-            <ul ng-controller="ReviewController">
-                <h4>Reviews</h4>
-                <li ng-repeat="review in getReviews(photo.id)">
+        <section>
+            <img ng-src="{{getImageUrl(photo)}}"/>
+        </section>
+
+        <section class="tab" ng-controller="TabController">
+            <ul class="nav nav-pills">
+                <li ng-class="{active: isSet(1)}">
+                    <a href ng-click="setTab(1)">Description</a></li>
+                <li ng-class="{active: isSet(2)}">
+                    <a ng-click="setTab(2)" href>Specs</a></li>
+                <li ng-class="{active: isSet(3)}">
+                    <a ng-click="setTab(3)" href>Reviews</a></li>
+            </ul>
+            <div ng-show="isSet(1)">
+                <h4>Ownership:</h4>
+
+                <p>Owner: {{photo.owner}}</p>
+
+                <p>Family: {{photo.isfamily}}</p>
+
+                <p>Friend: {{photo.isfriend}}</p>
+
+                <p>Public: {{photo.ispublic}}</p>
+            </div>
+            <div ng-show="isSet(2)">
+                <h4>Specs</h4>
+
+                <p>Secret: {{photo.secret}}</p>
+
+                <p>Server: {{photo.server}}</p>
+
+                <p>ID: {{photo.id}}</p>
+            </div>
+            <div ng-show="isSet(3)">
+                <ul ng-controller="ReviewController">
+                    <h4>Reviews</h4>
+                    <li ng-repeat="review in getReviews(photo.id)">
+                        <blockquote>
+                            <strong>{{review.stars}} Stars</strong>
+                            {{review.body}}
+                            <cite class="clearfix">{{review.author}}</cite>
+                        </blockquote>
+                    </li>
+                </ul>
+                <!--  Review Form -->
+                <form name="reviewForm" ng-controller="ReviewController" ng-submit="addReview(photo.id)">
+                    <!--  Live Preview -->
                     <blockquote>
                         <strong>{{review.stars}} Stars</strong>
                         {{review.body}}
-                        <cite class="clearfix">{{review.author}}</cite>
+                        <cite class="clearfix">-- {{review.author}} </cite>
                     </blockquote>
-                </li>
-            </ul>
-            <!--  Review Form -->
-            <form name="reviewForm" ng-controller="ReviewController" ng-submit="addReview(photo.id)">
-                <!--  Live Preview -->
-                <blockquote>
-                    <strong>{{review.stars}} Stars</strong>
-                    {{review.body}}
-                    <cite class="clearfix">-- {{review.author}} </cite>
-                </blockquote>
 
-                <!--  Review Form -->
-                <h4>Submit a Review</h4>
-                <fieldset class="form-group">
-                    <select ng-model="review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]"
-                            title="Stars">
-                        <option value="">Rate the Product</option>
-                    </select>
-                </fieldset>
-                <fieldset class="form-group">
-                    <textarea ng-model="review.body" class="form-control"
-                              placeholder="Write a short review of the product..." title="Review"></textarea>
-                </fieldset>
-                <fieldset class="form-group">
-                    <input ng-model="review.author" type="email" class="form-control" placeholder="manish@example.org"
-                           title="Email"/>
-                </fieldset>
-                <fieldset class="form-group">
-                    <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
-                </fieldset>
-            </form>
-        </div>
-    </section>
+                    <!--  Review Form -->
+                    <h4>Submit a Review</h4>
+                    <fieldset class="form-group">
+                        <select ng-model="review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]"
+                                title="Stars">
+                            <option value="">Rate the Image</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <textarea ng-model="review.body" class="form-control"
+                                  placeholder="Write a short review of the image..." title="Review"></textarea>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input ng-model="review.author" type="email" class="form-control"
+                               placeholder="manish@example.org"
+                               title="Email"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+    </div>
+
 </div>
+
+
 </body>
 </html>
