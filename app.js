@@ -5,12 +5,9 @@ app.controller('ImageController', ['$scope', '$http', function ($scope, $http) {
     // IMPORTANT: replace this with your actual flickr API key
     var flickr_api_key = 'INSERT_API_KEY';
 
-    var search_text = 'Sunset Photo';
-
-    $scope.doFlickSearch = function (search_text) {
-        $http.get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr_api_key + '&text=' + search_text + '&per_page=5&page=1&format=json&nojsoncallback=1').success(function (data) {
+    $scope.doFlickrSearch = function (searchText) {
+        $http.get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickr_api_key + '&text=' + searchText + '&per_page=5&page=1&format=json&nojsoncallback=1').success(function (data) {
             $scope.searchResults = data["photos"];
-//            var photo = $scope.searchResults['photo'][0]
         });
     };
 
@@ -24,14 +21,15 @@ app.controller('ImageController', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.searchResults = testSearchResults;
-    $scope.doFlickSearch(search_text);
+    $scope.searchText = 'Sunset';
+    $scope.doFlickrSearch($scope.searchText);
 }]);
 
 app.controller('TabController', ['$scope', function ($scope) {
     $scope.tab = 1;
     $scope.setTab = function (newValue) {
         $scope.tab = newValue;
-    }
+    };
     $scope.isSet = function (tabName) {
         return $scope.tab == tabName;
     }
@@ -42,7 +40,7 @@ app.controller('ReviewController', ['$scope', function ($scope) {
 
     $scope.addReview = function (photo_id) {
         if (typeof $scope.reviews[photo_id] === 'undefined') {
-            $scope.reviews[photo_id] = new Array();
+            $scope.reviews[photo_id] = [];
         }
         $scope.reviews[photo_id].push($scope.review);
         $scope.review = {};

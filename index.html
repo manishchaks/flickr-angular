@@ -12,6 +12,17 @@
 
     <h2 class="text-center">Made with Angular.js</h2>
 </header>
+<section>
+    <form name="search" ng-submit="doFlickrSearch(image.searchText)">
+        <fieldset class="form-group">
+            <input ng-model="image.searchText" type="text" class="form-control" placeholder="Beach"
+                   title="Image Search"/>
+        </fieldset>
+        <fieldset class="form-group">
+            <input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+        </fieldset>
+    </form>
+</section>
 <div class="list-group-item" ng-repeat="photo in
                                            searchResults.photo">
     <h3>Title: {{photo.title}}
