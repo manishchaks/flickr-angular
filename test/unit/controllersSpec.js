@@ -39,13 +39,12 @@ describe('Flickr Angular Controllers', function() {
             ctrl = $controller('ReviewController', {$scope: scope});
         }));
 
-
-        it('Should have no reviews when it starts', function() {
-            expect(scope.review).toEqualData({});
-        });
-
         it("Should be possible to add a review",function(){
-           scope.addReview("foo");
+            scope.review = {stars: 5, author: "manish@test.com", body: 'This is a test body'}
+            var photoId = "15246462712";
+            expect(scope.reviews[photoId].length).toBe(1);
+            scope.addReview(photoId);
+            expect(scope.reviews[photoId].length).toBe(2);
         });
     });
 });

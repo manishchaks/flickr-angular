@@ -1,11 +1,13 @@
+// TODO
+// 1. Use a pre-canned search term to talk to flickr and get data
+// 2. From data get information about images and fetch URL's
+// 3. Create a search form to fire the request with user-supplied input instead of using precanned data.
+//
+
 
 var app = angular.module('flickr-angular', []);
 
 app.controller('ImageController',['$scope',function($scope){
-//    $scope.searchResults = {};
-//    for (pic in testSearchResults.photo){
-//        testSearchResults.photo[pic].reviews= new Array();
-//    }
     $scope.searchResults = testSearchResults;
 }]);
 
@@ -21,10 +23,13 @@ app.controller('TabController',['$scope',function($scope){
 
 app.controller('ReviewController',['$scope',function($scope){
     $scope.reviews = testReviews;
-    $scope.addReview = function(photo){
-        $scope.reviews[photo.id].push($scope.review);
+
+    $scope.addReview = function(photo_id){
+        if(typeof $scope.reviews[photo_id] === 'undefined'){
+            $scope.reviews[photo_id] = new Array();
+        }
+        $scope.reviews[photo_id].push($scope.review);
         $scope.review = {};
-        console.log($scope.reviews);
     };
 
     $scope.getReviews = function(photo_id){
